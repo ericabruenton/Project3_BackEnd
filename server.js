@@ -26,9 +26,11 @@ app.use(cors(corsOptions));
 // Require the controller after the middleware
 const authController = require('./controllers/authController');
 const postsController  = require('./controllers/postsController');
+const firesController  = require('./controllers/firesController');
 
 app.use('/auth', authController);
 app.use('/posts', postsController);
+app.use('/fires', postsController);
 
 app.listen(9000, () => {
     console.log("10 - 4 on port 9000!");

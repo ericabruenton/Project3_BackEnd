@@ -2,17 +2,17 @@ const express = require('express');
 const router = express.Router();
 const Users = require('../models/users.js');
 const Posts = require('../models/posts.js');
-const Fires = require('../models/fires.js');
+const Fires = require('../models/fires.js')
 
 // Create index route
  router.get('/', async (req, res) => {
-  console.log(req.session, ' i see everything')
+  console.log(req.session, ' on fire')
      try  {
-      const allPosts = await Posts.find();
+      const allFires = await Fires.find();
 
       res.json({
         status: 200,
-        data: allPosts
+        data: allFires
       })
 
     } catch (err){
@@ -27,11 +27,11 @@ router.post('/', async (req, res) => {
 
   try {
     console.log(req.body, ' this is req.body');
-    const createdPosts = await Posts.create(req.body);
+    const createdFires = await Fires.create(req.body);
 
     res.json({
       status: 200,
-      data: createdPosts
+      data: createdFires
     });
 
   } catch(err){
@@ -43,42 +43,15 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 
      try  {
-        const foundPosts = await Posts.findById(req.params.id);
+        const foundFires = await Fires.findById(req.params.id);
         res.json({
           status: 200,
-          data: foundPosts
+          data: foundFires
         });
 
       } catch (err){
         res.send(err);
       }
-});
-
-router.put('/:id', async (req, res) => {
-
-  try {
-    const updatedPosts = await Posts.findByIdAndUpdate(req.params.id, req.body, {new: true});
-    res.json({
-      status: 200,
-      data: updatedPosts
-    });
-  } catch(err){
-    res.send(err)
-  }
-});
-
-// Delete route
-router.delete('/:id', async (req, res) => {
-
-  try {
-     const deletedPosts = await Posts.findByIdAndRemove(req.params.id);
-      res.json({
-        status: 200,
-        data: deletedPosts
-      });
-  } catch(err){
-    res.send(err);
-  }
 });
 
 module.exports = router;
