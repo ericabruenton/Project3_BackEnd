@@ -24,20 +24,23 @@ router.post('/', async (req, res) => {
   console.log(req.session, " this is req.session in the post route")
   console.log("******************************")
 
-  try {
-    console.log(req.body, ' this is req.body');
-    const createdPosts = await Posts.create(req.body);
-
-    res.json({
-      status: 200,
-      data: createdPosts
+    try {
+      console.log(req.body, ' this is req.body');
+      const createdPosts = await Posts.create(req.body);
+    
+      res.json({
+        status: 200,
+        data: createdPosts
+      });
+    
+    } catch(err){
+      console.log(err);
+      res.json({
+        status: 500,
+        data: err
+      })
+    }
     });
-
-  } catch(err){
-    console.log(err);
-    res.send(err);
-  }
-});
 
 router.get('/:id', async (req, res) => {
 
